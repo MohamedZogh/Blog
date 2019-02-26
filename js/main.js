@@ -29,7 +29,7 @@ function getComments(){
     }    
   
   
-    xhr.open('POST','save_comment.php');
+    xhr.open('POST','controllers/save_comment.php');
     
     var	data	=	new	FormData();	
     data.append('comment',	document.getElementById('comment').value);
@@ -59,7 +59,7 @@ function like(){
    }    
 
 
-   xhr.open('POST','like.php');
+   xhr.open('POST','controllers/like.php');
 
    var	data	=	new	FormData();	
    data.append('like',	document.getElementById('like').value);
@@ -90,7 +90,7 @@ function dislike(){
    }    
 
 
-   xhr.open('POST','dislike.php');
+   xhr.open('POST','controllers/dislike.php');
 
    var	data	=	new	FormData();	
    data.append('dislike',	document.getElementById('dislike').value);

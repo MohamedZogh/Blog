@@ -1,9 +1,10 @@
 <?php
-function return_Dislikes(){
+
+function return_likes(){
     $database = connect();
 if (!is_null($database)) {
 
-    $locate = ("SELECT dislikes FROM compteur WHERE id=1");
+    $locate = ("SELECT likes FROM compteur WHERE id=1");
 
     $prepared_request2 = $database -> prepare ($locate);
     
@@ -12,14 +13,15 @@ if (!is_null($database)) {
 
     $prepared_request2 -> execute();
 
-    $quantiteDislikes = $prepared_request2 -> fetch();
+    $quantiteLikes = $prepared_request2 -> fetch();
 
     $prepared_request2 -> closeCursor();
-        $majDislikes = $quantiteDislikes['dislikes'];
+        $majLikes = $quantiteLikes['likes'];
 
-    return $majDislikes;
+    return $majLikes;
     
     }
 
 }
+
 ?>

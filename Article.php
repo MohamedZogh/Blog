@@ -1,82 +1,16 @@
 <?php 
-include_once('connection.php');
-include_once('like.php');
-include_once('dislike.php');
-
-function return_likes(){
-    $database = connect();
-if (!is_null($database)) {
-
-    $locate = ("SELECT likes FROM compteur WHERE id=1");
-
-    $prepared_request2 = $database -> prepare ($locate);
-    
-    // bindParam associe :nom dans la requete à $nom_emetteur
-    //$prepared_request -> bindParam(':prenom' , $prenom, PDO::PARAM_STR, 12);
-
-    $prepared_request2 -> execute();
-
-    $quantiteLikes = $prepared_request2 -> fetch();
-
-    $prepared_request2 -> closeCursor();
-        $majLikes = $quantiteLikes['likes'];
-
-    return $majLikes;
-    
-    }
-
-}
-
-function return_Dislikes(){
-    $database = connect();
-if (!is_null($database)) {
-
-    $locate = ("SELECT dislikes FROM compteur WHERE id=1");
-
-    $prepared_request2 = $database -> prepare ($locate);
-    
-    // bindParam associe :nom dans la requete à $nom_emetteur
-    //$prepared_request -> bindParam(':prenom' , $prenom, PDO::PARAM_STR, 12);
-
-    $prepared_request2 -> execute();
-
-    $quantiteDislikes = $prepared_request2 -> fetch();
-
-    $prepared_request2 -> closeCursor();
-        $majDislikes = $quantiteDislikes['dislikes'];
-
-    return $majDislikes;
-    
-    }
-
-}
+include_once('./controllers/connection.php');
+include_once('./controllers/like.php');
+include_once('./controllers/dislike.php');
+include_once('./controllers/return_Dislikes.php');
+include_once('./controllers/return_Likes.php');
+include_once('./controllers/allComments.php');
 
 $majDislikes = return_Dislikes();
 
 $majLikes = return_likes();
 
-function allComments(){
-        
-    $database = connect();
-
-        $locate = ("SELECT date_create,content FROM comments;");                       
-        $prepared_request = $database -> prepare ($locate);
-
-        // bindParam associe :nom dans la requete à $nom_emetteur
-        //$prepared_request -> bindParam(':prenom' , $prenom, PDO::PARAM_STR, 12);
-
-        $prepared_request -> execute();
-        // On recupere sous forme de tablaue avec fetch.
-        $Comments = $prepared_request -> fetchAll();
-        // On recupere les donnes du case..
-        $prepared_request -> closeCursor();
-
-        return $Comments;
-}
-
 $Comments = allComments();
-
-
 
 ?>
 
@@ -87,7 +21,7 @@ $Comments = allComments();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     
 </head>
@@ -125,6 +59,6 @@ $Comments = allComments();
           } ?>
         </section>
     </div>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
