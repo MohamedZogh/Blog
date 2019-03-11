@@ -1,7 +1,7 @@
 <?php 
 include_once('controllers/connection.php');
 include_once('controllers2/getAllArticles.php');
-
+include_once('controllers2/getAllUsers.php');
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +37,33 @@ include_once('controllers2/getAllArticles.php');
                 <p> <?php echo $article['id']." ".$article['title']." ".$article['content']; ?> <button type="button" onclick="Modifier(<?php echo $article['id'] ?>)">M</button><button type="button" onclick="Supprimer(<?php echo $article['id'] ?>)">S</button></p>
                 <?php } ?>
               
+    </div>
+
+    <div id="user">
+
+        <div id="form_user">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Nom.."> <br>
+            <label for="prenom">Prenom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Prenom.."> <br>
+            <label for="email">Email :</label>
+            <input type="text" id="email" name="email" placeholder="Email.."> <br>
+            <input type="hidden" id="identifiant_user" name="identifiant_user">
+
+            <div id="bouttons">
+                <input id="ajouter_user" type="submit" value="Ajouter" onclick="add_user()">
+                <input id="update_user" type="submit" value="Update" onclick="update_user()">
+            </div>
+
+        </div>
+        <div id="border">
+            <div id="liste_user">
+
+            <?php $Users = getAllUsers();?>
+
+            </div>
+        </div>
+
     </div>
 
     <script src="js/article.js"></script>

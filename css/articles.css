@@ -27,3 +27,54 @@
     margin: 20px;
     padding: 10px;
 }
+
+#user{
+    background-color: rgb(128, 128, 128);
+    padding: 4vw;
+    width:90vw;
+    border: 2px solid rgb(128, 0, 0);
+
+ }
+
+ #form_user{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 25vw;; 
+    border: 2px solid black;
+    padding: 3vw;
+    background-color: rgba(0, 0, 0, 0.808);
+    color: yellow;
+ }
+ #ajouter_user{
+    margin: 2px; 
+    padding:7px;
+    background-color: rgb(32, 140, 190);
+}
+#update_user{
+    margin: 2px; 
+    padding:7px;
+    background-color: rgb(32, 190, 93);
+}
+#border{
+    margin-top: 2vh;
+    padding:0.5vw;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width:50vw;
+    height:30vh;
+    background: linear-gradient(to right, blue, red, green,yellow);
+    border-radius: 10px;
+}
+
+#liste_user{
+    margin:0;
+    display:flex;
+    flex-direction: column-reverse;
+    padding-left: 1vw;
+    width:50vw;
+    height: 30vh;
+    background-color: white;
+    overflow: auto;
+}
