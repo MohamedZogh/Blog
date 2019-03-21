@@ -1,6 +1,6 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modele/article.php');
+include_once('../modeles/Article.php');
 
 $database = connect();
 
@@ -13,9 +13,12 @@ if (!is_null($database)) {
         if (isset($_POST['content'])){
 
             $content = $_POST['content'];
+
+            if (isset($_POST['identifiant'])){
+
+                $id = $_POST['identifiant'];
         
-                $locate = ("INSERT INTO articles (title, content) 
-                VALUES ('$title', '$content');");
+                $locate = ("UPDATE articles SET title = '$title', content= '$content' WHERE id=$id;");
 
                 $prepared_request = $database -> prepare ($locate);
                 
@@ -23,9 +26,6 @@ if (!is_null($database)) {
                 //$prepared_request -> bindParam(':prenom' , $prenom, PDO::PARAM_STR, 12);
                 $prepared_request -> execute();
                 $prepared_request -> closeCursor();
-
-
-                $id =$database->lastInsertId();
 
                     $locate = ("SELECT * FROM articles WHERE id =$id");
                     $prepared_request2 = $database -> prepare ($locate);
@@ -39,11 +39,20 @@ if (!is_null($database)) {
 
         
                     echo (json_encode($getArticle));
-
+            }
                     
 
         }
     }
 
 }
+    
+    // while ($donnees = $prepared_request->fetch(PDO::FETCH_ASSOC)) {
+
+    // $perso = new Personnage($donnees);
+            
+    // echo $perso->nom(), ' a ', $perso->forcePerso(), ' de force, ', $perso->degats(), ' de dégâts, ', $perso->experience(), ' d\'expérience et est au niveau ', $perso->niveau();
+    // }
+
+    // }
 ?>

@@ -1,24 +1,24 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modele/article.php');
+include_once('../modeles/article.php');
+include_once('../modeles/Response.php');
+include_once('../modeles/SuccessResponse.php');
+include_once('../modeles/FalseResponse.php');
 
 $database = connect();
 
 if (!is_null($database)) {
 
-    if (isset($_POST['title'])){
+    if ($_POST['title'] != null){
 
-        $title = $_POST['title'];
+        $title = htmlspecialchars($_POST['title']);
 
-        if (isset($_POST['content'])){
+        if ($_POST['content']!= null){
 
-            $content = $_POST['content'];
-
-            if (isset($_POST['identifiant'])){
-
-                $id = $_POST['identifiant'];
+            $content = htmlspecialchars($_POST['content']);
         
-                $locate = ("UPDATE articles SET title = $title, content= $content WHERE id=$id);");
+                $locate = ("INSERT INTO articles (title, content) 
+                VALUES ('$title', '$content');");
 
                 $prepared_request = $database -> prepare ($locate);
                 
@@ -26,6 +26,9 @@ if (!is_null($database)) {
                 //$prepared_request -> bindParam(':prenom' , $prenom, PDO::PARAM_STR, 12);
                 $prepared_request -> execute();
                 $prepared_request -> closeCursor();
+
+
+                $id =$database->lastInsertId();
 
                     $locate = ("SELECT * FROM articles WHERE id =$id");
                     $prepared_request2 = $database -> prepare ($locate);
@@ -39,20 +42,22 @@ if (!is_null($database)) {
 
         
                     echo (json_encode($getArticle));
-            }
+
                     
 
         }
+        else{
+            $response = new FalseResponse(false, "Content ne peut pas etre vide");
+            echo (json_encode($response));
+        }
     }
-
+    else{
+        $response = new FalseResponse(false, "Title ne peut pas etre vide");
+        echo (json_encode($response));
+    }
 }
-    
-    // while ($donnees = $prepared_request->fetch(PDO::FETCH_ASSOC)) {
-
-    // $perso = new Personnage($donnees);
-            
-    // echo $perso->nom(), ' a ', $perso->forcePerso(), ' de force, ', $perso->degats(), ' de dégâts, ', $perso->experience(), ' d\'expérience et est au niveau ', $perso->niveau();
-    // }
-
-    // }
+else{
+    $response = new FalseResponse(false, "Connection a la base de donnees echoue");
+    echo (json_encode($response));
+}
 ?>

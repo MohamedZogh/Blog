@@ -1,0 +1,15 @@
+#button{
+    margin-top: 2vh;
+    display:flex;
+    justify-content: center;
+}
+#bottom{
+    width: 100vw;
+    /* display:flex;
+    justify-content: center;
+    align-items: center; */
+}
+.titre_article{
+    color: blue;
+    text-decoration: underline;
+}

@@ -1,6 +1,6 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modele/user.php');
+include_once('../modeles/user.php');
 
 $database = connect();
 
@@ -8,19 +8,19 @@ if (!is_null($database)) {
 
     if (isset($_POST['nom'])){
 
-        $nom = $_POST['nom'];
+        $nom = htmlspecialchars($_POST['nom']);
 
         if (isset($_POST['prenom'])){
 
-            $prenom = $_POST['prenom'];
+            $prenom = htmlspecialchars($_POST['prenom']);
 
             if (isset($_POST['email'])){
 
-                $email = $_POST['email'];
+                $email = htmlspecialchars($_POST['email']);
 
                 if (isset($_POST['identifiant'])){
 
-                    $id = $_POST['identifiant'];
+                    $id = htmlspecialchars($_POST['identifiant']);
         
                     $locate = ("UPDATE user SET nom = '$nom', prenom= '$prenom', email= '$email' WHERE id=$id ;");
 

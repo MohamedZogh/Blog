@@ -1,7 +1,7 @@
 <?php 
 include_once('controllers/connection.php');
-include_once('controllers2/getAllArticles.php');
-include_once('controllers2/getAllUsers.php');
+include_once('controllers_blog_2/getAllArticles.php');
+include_once('controllers_blog_2/getAllUsers.php');
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ include_once('controllers2/getAllUsers.php');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/articles.css">
     
@@ -23,8 +23,8 @@ include_once('controllers2/getAllUsers.php');
         <textarea name="content" id="content" cols="100" rows="15"></textarea>
         <input type="hidden" id="identifiant" name="identifiant">
         <div id="bouttons">
-            <input id="ajouter" type="submit" value="Ajouter" onclick="add()">
-            <input id="update" type="submit" value="Update" onclick="update()">
+            <input id="ajouter" type="submit" value="Ajouter" onclick="add_article()">
+            <input id="update" type="submit" value="Update" onclick="update_article()">
         </div>
 
     </div>
@@ -34,7 +34,9 @@ include_once('controllers2/getAllUsers.php');
 
         <?php $Articles = getAllArticles();
             foreach($Articles as $key=> $article){ ?>
-                <p> <?php echo $article['id']." ".$article['title']." ".$article['content']; ?> <button type="button" onclick="Modifier(<?php echo $article['id'] ?>)">M</button><button type="button" onclick="Supprimer(<?php echo $article['id'] ?>)">S</button></p>
+                <p id="article_<?php echo $article['id'];?>"> <?php echo $article['title']." ".$article['content']; ?> 
+                    <button type="button" onclick="modifier_article(<?php echo $article['id'] ?>)">M</button>
+                    <button type="button" onclick="Supprimer(<?php echo $article['id'] ?>)">S</button></p>
                 <?php } ?>
               
     </div>

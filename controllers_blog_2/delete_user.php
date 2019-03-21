@@ -1,6 +1,6 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modele/user.php');
+include_once('../modeles/user.php');
 
 $database = connect();
 

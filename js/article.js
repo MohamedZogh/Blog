@@ -1,4 +1,4 @@
-function add() 
+function add_article() 
 {   
 
     var    xhr    =    new    XMLHttpRequest();    
@@ -20,7 +20,7 @@ function add()
             }    
 
 
-    xhr.open('POST','controllers2/add_comment.php');
+    xhr.open('POST','controllers_blog_2/add_comment.php');
  
     var	data	=	new	FormData();	
     data.append('title', document.getElementById('title').value);
@@ -30,7 +30,7 @@ function add()
 
     }
 
-function Modifier(id){
+function modifier_article(id){
     var id = id;
 
     var    xhr    =    new    XMLHttpRequest();    
@@ -43,15 +43,15 @@ function Modifier(id){
                 var content1 = JSON.parse(xhr.response).content;
 
                 document.getElementById("title").value = title1;
-                document.getElementById("content").innerHTML = content1;
-                document.getElementById("identifiant").innerHTML = identifiant;
+                document.getElementById("content").value = content1;
+                document.getElementById("identifiant").value = identifiant;
 
                 
                  }    
             }    
 
 
-    xhr.open('POST','controllers2/select_Id.php');
+    xhr.open('POST','controllers_blog_2/select_Id.php');
  
     var	data	=	new	FormData();	
     data.append('id', id);
@@ -60,27 +60,28 @@ function Modifier(id){
 
 } 
     
-function update() 
+function update_article() 
 {   
 
     var    xhr    =    new    XMLHttpRequest();    
     
     xhr.onreadystatechange    =    function() {    
-                if    (xhr.readyState    ==    4    &&    xhr.status    ==    200)    {    
+                if    (xhr.readyState    ==    4    &&    xhr.status    ==    200)    {  
 
                 var identifiant = JSON.parse(xhr.response).id;
-                var title1 = JSON.parse(xhr.response).title;
-                var content1 = JSON.parse(xhr.response).content;
-
-                document.getElementById("title").value = title1;
-                document.getElementById("content").innerHTML = content1;
-                document.getElementById("identifiant").value = identifiant;
+                var title = JSON.parse(xhr.response).title;
+                var content = JSON.parse(xhr.response).content;
+                var article = title +" "+ content;
+                
+                document.getElementById('article_'+identifiant).innerHTML = article + 
+                "<button type='button' onclick='modifier_article(" + identifiant +")'>M</button>" +
+                "<button type='button' onclick='Supprimer_article(" + identifiant +")'>S</button>";
                 
                     }    
             }    
 
 
-    xhr.open('POST','controllers2/update_comment.php');
+    xhr.open('POST','controllers_blog_2/update_comment.php');
     
     var	data	=	new	FormData();	
     data.append('title', document.getElementById('title').value);
@@ -100,22 +101,37 @@ function add_user()
              if    (xhr.readyState    ==    4    &&    xhr.status    ==    200)    {  
                   
                 
-                // var id = JSON.parse(xhr.response).id;
+                var id = JSON.parse(xhr.response).id;
                 var nom = JSON.parse(xhr.response).nom;
                 var prenom = JSON.parse(xhr.response).prenom;
                 var email = JSON.parse(xhr.response).email;
 
-                var enfant = document.createElement("p");
-                var parent = document.getElementById("liste_user");                    
-                parent.appendChild(enfant);
+                var new_p = document.createElement("p");
+                new_p.setAttribute("id", id);
+                var liste = document.getElementById("liste_user");                 
+                liste.appendChild(new_p);
 
-                var contenu = nom + " " + prenom + " " + email ;
-                document.getElementById("liste_user").lastChild.innerHTML += contenu;
+                // var button = document.createElement("button");
+                // button.setAttribute("type", "button");
+                // button.innerHTML = "M";
+                // button.addEventListener("click", "Modifier_user("+id+")");
+                // new_p.appendChild(button);
+
+                // var button2 = document.createElement("button");
+                // button2.setAttribute("type", "button");
+                // button2.innerHTML = "S";
+                // button2.addEventListener("click", "Supprimer_user("+id+")");
+                // new_p.appendChild(button2);
+                
+                var contenu = nom + " " + prenom + " " + email + '<button type="button" onclick="Modifier_user('+id+')">M</button>' +
+                '<button type="button" onclick="Supprimer_user('+id+')">S</button>';
+    
+                document.getElementById("liste_user").lastChild.innerHTML = contenu;
                  }    
             }    
 
 
-    xhr.open('POST','controllers2/add_user.php');
+    xhr.open('POST','controllers_blog_2/add_user.php');
  
     var	data	=	new	FormData();	
     data.append('nom', document.getElementById('nom').value);
@@ -139,7 +155,8 @@ function update_user()
                 var nom = JSON.parse(xhr.response).nom;
                 var prenom = JSON.parse(xhr.response).prenom;
                 var email = JSON.parse(xhr.response).email;
-                var contenu = nom + " " + prenom + " " +email ;
+                var contenu = nom + " " + prenom + " " + email + '<button type="button" onclick="Modifier_user('+id+')">M</button>' +
+                '<button type="button" onclick="Supprimer_user('+id+')">S</button>';
 
                 document.getElementById(id).innerHTML = contenu ;
                 
@@ -147,7 +164,7 @@ function update_user()
             }    
 
 
-    xhr.open('POST','controllers2/update_user.php');
+    xhr.open('POST','controllers_blog_2/update_user.php');
     
     var	data	=	new	FormData();	
     data.append('nom', document.getElementById('nom').value);
@@ -181,7 +198,7 @@ function Modifier_user(id){
             }    
 
 
-    xhr.open('POST','controllers2/select_Id_User.php');
+    xhr.open('POST','controllers_blog_2/select_Id_User.php');
  
     var	data	=	new	FormData();	
     data.append('id', id);
@@ -205,7 +222,7 @@ function Supprimer_user(id)
             }    
 
 
-    xhr.open('POST','controllers2/delete_user.php');
+    xhr.open('POST','controllers_blog_2/delete_user.php');
     
     var	data	=	new	FormData();	
     data.append('id', id);

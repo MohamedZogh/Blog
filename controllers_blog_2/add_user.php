@@ -1,6 +1,6 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modele/user.php');
+include_once('../modeles/user.php');
 
 $database = connect();
 
@@ -8,15 +8,15 @@ if (!is_null($database)) {
 
     if (isset($_POST['nom'])){
 
-        $nom = $_POST['nom'];
+        $nom = htmlspecialchars($_POST['nom']);
 
         if (isset($_POST['prenom'])){
 
-            $prenom = $_POST['prenom'];
+            $prenom = htmlspecialchars($_POST['prenom']);
 
             if (isset($_POST['email'])){
 
-                $email = $_POST['email'];
+                $email = htmlspecialchars($_POST['email']);
         
                     $locate = ("INSERT INTO user (nom, prenom, email) 
                     VALUES ('$nom', '$prenom', '$email');");
