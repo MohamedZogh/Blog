@@ -1,24 +1,27 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modeles/user.php');
+include_once('../modeles/User.php');
+include_once('../modeles/Response.php');
+include_once('../modeles/SuccessResponse.php');
+include_once('../modeles/FalseResponse.php');
 
 $database = connect();
 
 if (!is_null($database)) {
 
-    if (isset($_POST['nom'])){
+    if (($_POST['nom']!= null)){
 
         $nom = htmlspecialchars($_POST['nom']);
 
-        if (isset($_POST['prenom'])){
+        if (($_POST['prenom']!= null)){
 
             $prenom = htmlspecialchars($_POST['prenom']);
 
-            if (isset($_POST['email'])){
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 
                 $email = htmlspecialchars($_POST['email']);
 
-                if (isset($_POST['identifiant'])){
+                if (($_POST['identifiant'])!= null){
 
                     $id = htmlspecialchars($_POST['identifiant']);
         
@@ -44,10 +47,32 @@ if (!is_null($database)) {
             
                         echo (json_encode($user_ajax));
                 }
+                else{
+                    $response = new FalseResponse(false, "L'id n'a pas été transmis");
+                    echo (json_encode($response));
+                }
+                
+            }
+            else{
+                $response = new FalseResponse(false, "L'email est incorect");
+                echo (json_encode($response));
             }
                     
 
         }
+        else{
+            $response = new FalseResponse(false, "Le prenom ne peut-etre nul");
+            echo (json_encode($response));
+        }
+    }
+    else{
+        $response = new FalseResponse(false, "Le nom ne peut etre nul");
+        echo (json_encode($response));
     }
 
 }
+else{
+    $response = new FalseResponse(false, "Connection à la base echouee");
+    echo (json_encode($response));
+}
+?>

@@ -2,7 +2,8 @@
 include_once('connection.php');
 
 date_default_timezone_set('UTC');
-$date=date('Y-m-d');
+$dates=date('Y-m-d');
+$date = "$dates";
 
 $database = connect();
 

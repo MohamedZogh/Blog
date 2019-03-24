@@ -1,4 +1,4 @@
-#partie1{
+#formulaire{
     border: 2px solid blue;
     padding: 15px;
     width: 60%;
@@ -18,7 +18,7 @@
     background-color: rgb(32, 190, 93);
 }
 
-#partie2{
+#liste_articles{
     border: 2px solid rgb(10, 126, 87);
     display:flex;
     flex-direction: column-reverse;

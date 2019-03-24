@@ -1,6 +1,6 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modeles/User.php');
+include_once('../modeles/user.php');
 include_once('../modeles/Response.php');
 include_once('../modeles/SuccessResponse.php');
 include_once('../modeles/FalseResponse.php');
@@ -11,9 +11,9 @@ if (!is_null($database)) {
 
     if (($_POST['id'])!= null){
 
-        $id = $_POST['id'];
+        $id = htmlspecialchars($_POST['id']);
         
-                    $locate = ("DELETE FROM user WHERE id =$id");
+                    $locate = ("DELETE FROM articles WHERE id =$id");
                     $prepared_request = $database -> prepare ($locate);
 
                     $prepared_request -> execute();

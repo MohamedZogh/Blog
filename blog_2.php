@@ -15,7 +15,7 @@ include_once('controllers_blog_2/getAllUsers.php');
     
 </head>
 <body>
-    <div id="partie1">
+    <div id="formulaire">
 
         <label for="title">Titre :</label>
         <input type="text" id="title" name="title" placeholder="Titre.."> <br>
@@ -30,13 +30,13 @@ include_once('controllers_blog_2/getAllUsers.php');
     </div>
     
 
-    <div id="partie2">
+    <div id="liste_articles">
 
         <?php $Articles = getAllArticles();
             foreach($Articles as $key=> $article){ ?>
                 <p id="article_<?php echo $article['id'];?>"> <?php echo $article['title']." ".$article['content']; ?> 
                     <button type="button" onclick="modifier_article(<?php echo $article['id'] ?>)">M</button>
-                    <button type="button" onclick="Supprimer(<?php echo $article['id'] ?>)">S</button></p>
+                    <button type="button" onclick="supprimer_article(<?php echo $article['id'] ?>)">S</button></p>
                 <?php } ?>
               
     </div>

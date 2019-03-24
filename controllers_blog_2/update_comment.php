@@ -1,22 +1,25 @@
 <?php 
 include_once('../controllers/connection.php');
 include_once('../modeles/Article.php');
+include_once('../modeles/Response.php');
+include_once('../modeles/SuccessResponse.php');
+include_once('../modeles/FalseResponse.php');
 
 $database = connect();
 
 if (!is_null($database)) {
 
-    if (isset($_POST['title'])){
+    if (($_POST['title'])!= null){
 
-        $title = $_POST['title'];
+        $title = htmlspecialchars($_POST['title']);
 
-        if (isset($_POST['content'])){
+        if (($_POST['content'])!= null){
 
-            $content = $_POST['content'];
+            $content = htmlspecialchars($_POST['content']);
 
-            if (isset($_POST['identifiant'])){
+            if (($_POST['identifiant'])!= null){
 
-                $id = $_POST['identifiant'];
+                $id = htmlspecialchars($_POST['identifiant']);
         
                 $locate = ("UPDATE articles SET title = '$title', content= '$content' WHERE id=$id;");
 
@@ -40,19 +43,27 @@ if (!is_null($database)) {
         
                     echo (json_encode($getArticle));
             }
+            else{
+                $response = new FalseResponse(false, "L'id n'a pas ete transmis ");
+                echo (json_encode($response));
+            }
                     
 
         }
+        else{
+            $response = new FalseResponse(false, "Le contenu ne peut-etre nul");
+            echo (json_encode($response));
+        }
+    }
+    else{
+        $response = new FalseResponse(false, "Le titre ne peut-etre nul");
+            echo (json_encode($response));
     }
 
 }
+else{
+    $response = new FalseResponse(false, "La connexion a la b ase de donnees a echouee");
+    echo (json_encode($response));
+}
     
-    // while ($donnees = $prepared_request->fetch(PDO::FETCH_ASSOC)) {
-
-    // $perso = new Personnage($donnees);
-            
-    // echo $perso->nom(), ' a ', $perso->forcePerso(), ' de force, ', $perso->degats(), ' de dégâts, ', $perso->experience(), ' d\'expérience et est au niveau ', $perso->niveau();
-    // }
-
-    // }
 ?>

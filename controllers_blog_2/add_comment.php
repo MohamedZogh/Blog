@@ -57,7 +57,7 @@ if (!is_null($database)) {
     }
 }
 else{
-    $response = new FalseResponse(false, "Connection a la base de donnees echoue");
+    $response = new FalseResponse(false, "Connection a la base de donnees echouee");
     echo (json_encode($response));
 }
 ?>

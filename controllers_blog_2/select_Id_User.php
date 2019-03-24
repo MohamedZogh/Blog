@@ -1,6 +1,9 @@
 <?php 
 include_once('../controllers/connection.php');
-include_once('../modeles/user.php');
+include_once('../modeles/User.php');
+include_once('../modeles/Response.php');
+include_once('../modeles/SuccessResponse.php');
+include_once('../modeles/FalseResponse.php');
 
 $database = connect();
 
@@ -21,6 +24,14 @@ if (!is_null($database)) {
                     echo (json_encode($Cible));
 
     }
+    else{
+        $response = new FalseResponse(false, "L'id n'a pas ete transmis");
+        echo (json_encode($response));
+    }
 
+}
+else{
+    $response = new FalseResponse(false, "La connexion a la base de donnees a echouee");
+    echo (json_encode($response));
 }
 ?>

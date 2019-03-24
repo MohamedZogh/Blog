@@ -1,5 +1,8 @@
 <?php 
 include_once('controllers/connection.php');
+include_once('../modeles/Response.php');
+include_once('../modeles/SuccessResponse.php');
+include_once('../modeles/FalseResponse.php');
 
 function getAllArticles(){
         
@@ -19,4 +22,8 @@ function getAllArticles(){
     
             return $Articles;
     }
+else{
+    $response = new FalseResponse(false, "La connexion a la base de donnees a echouee");
+    echo (json_encode($response));
+}
 ?>
